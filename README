@@ -9,4 +9,6 @@
   Made with:
       Python
       Bottle Web Framework (http://bottle.paws.de/)
-      MooTools
+      MooTools (http://www.mootools.net)
+      python-xlib (http://python-xlib.sourceforge.net)
+      win32api
