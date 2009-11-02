@@ -1,9 +1,9 @@
 <html>
     <head>
         <title>~~(__*> mousetrap</title>
-        <link rel="stylesheet" href="static/cheese.css"/>
+        <link rel="stylesheet" href="static/style.css"/>
         <script type="text/javascript" src="static/mootools.js"></script>
-        <script type="text/javascript" src="static/trap.js"></script>
+        <script type="text/javascript" src="static/mouse.js"></script>
     </head>
 
     <body>
