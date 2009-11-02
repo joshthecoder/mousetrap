@@ -5,6 +5,26 @@ from bottle import route, template, run
 def index():
     return template('index')
 
+@route('/mouse/moved')
+def mouse_moved():
+    return ''
+
+@route('/mouse/pressed')
+def mouse_pressed():
+    return ''
+
+@route('/mouse/released')
+def mouse_released():
+    return ''
+
+@route('/keyboard/pressed')
+def keyboard_pressed():
+    return ''
+
+@route('/keyboard/released')
+def keyboard_released():
+    return ''
+
 @route('/static/:file')
 def static_file(file):
     return open('static/%s' % file)
