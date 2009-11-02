@@ -1,5 +1,15 @@
+body {
+    text-align: center;
+}
+
+#container {
+    margin: 0 auto;
+    width: 60%;
+}
+
 #mousepad {
-    width: 200px;
-    height: 200px;
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
     background-color: black;
 }
