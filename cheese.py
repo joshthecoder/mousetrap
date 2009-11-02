@@ -24,9 +24,13 @@ class Mouse:
 
 class X11Mouse(Mouse):
 
+    def __init__(self):
+        self.display = display.Display()
+        self.screen = self.display.screen()
+
     def move(self, x, y):
-        # TODO: implement
-        return
+        self.screen.root.warp_pointer(x, y)
+        self.display.sync()        
 
     def press(self, button):
         # TODO: implement
@@ -51,7 +55,7 @@ class Win32Mouse(Mouse):
         return
 
 if sys.platform == 'linux2':
-    import Xlib
+    from Xlib import display
     mouse = X11Mouse()
 elif sys.platform == 'win32':
     import win32api
