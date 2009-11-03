@@ -50,7 +50,7 @@ window.addEvent('domready', function() {
     window.addEvent('keydown', function(e) {
         new Request({
             url: '/keyboard/pressed',
-            data: Hash.toQueryString({key: e.key, ctrl: e.control, shift: e.shift, alt: e.alt, meta: e.meta}),
+            data: Hash.toQueryString({key: e.code, ctrl: e.control, shift: e.shift, alt: e.alt, meta: e.meta}),
             method: 'post'
         }).send();
     });
@@ -58,7 +58,7 @@ window.addEvent('domready', function() {
     window.addEvent('keyup', function(e) {
         new Request({
             url: '/keyboard/released',
-            data: Hash.toQueryString({key: e.key, ctrl: e.control, shift: e.shift, alt: e.alt, meta: e.meta}),
+            data: Hash.toQueryString({key: e.code, ctrl: e.control, shift: e.shift, alt: e.alt, meta: e.meta}),
             method: 'post'
         }).send();
     });

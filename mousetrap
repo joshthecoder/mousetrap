@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from bottle import route, template, run, request, response
+from cheese import mouse, keyboard
 
 @route('/')
 def index():
@@ -12,20 +13,20 @@ Mouse and Keyboard update routes
 def mouse_moved():
     x = request.POST.get('x')
     y = request.POST.get('y')
+    mouse.move(x, y)
     print 'Mouse moved! x: %s y: %s' % (x, y)
-    return ''
 
 @route('/mouse/pressed', method='POST')
 def mouse_pressed():
     button = request.POST.get('button')
+    mouse.press(button)
     print 'Mouse pressed! button: %s' % button 
-    return ''
 
 @route('/mouse/released', method='POST')
 def mouse_released():
     button = request.POST.get('button')
+    mouse.release(button)
     print 'Mouse released! button: %s' % button
-    return ''
 
 @route('/keyboard/pressed', method='POST')
 def keyboard_pressed():
@@ -34,8 +35,8 @@ def keyboard_pressed():
     alt = request.POST.get('alt', False)
     shift = request.POST.get('shift', False)
     meta = request.POST.get('meta', False)
+    keyboard.press(key)
     print 'Key pressed! key: %s ctrl: %s alt: %s shift: %s meta: %s' % (key, ctrl, alt, shift, meta)
-    return ''
 
 @route('/keyboard/released', method='POST')
 def keyboard_released():
@@ -44,8 +45,8 @@ def keyboard_released():
     alt = request.POST.get('alt', False)
     shift = request.POST.get('shift', False)
     meta = request.POST.get('meta', False)
+    keyboard.release(key)
     print 'Key released! key: %s ctrl: %s alt: %s shift: %s meta: %s' % (key, ctrl, alt, shift, meta)
-    return ''
 
 @route('/static/:file')
 def static_file(file):
