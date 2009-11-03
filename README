@@ -9,6 +9,7 @@
   Made with:
       Python
       Bottle Web Framework (http://bottle.paws.de/)
+      CherryPy WSGI Server (http://cherrypy.org/)
       MooTools (http://www.mootools.net)
       python-xlib (http://python-xlib.sourceforge.net)
-      win32api
+
