@@ -6,9 +6,9 @@ import sys
 
 class Mouse:
 
-    LEFT_BUTTON = 0
-    MIDDLE_BUTTON = 1
-    RIGHT_BUTTON = 2
+    LEFT_BUTTON = 1
+    MIDDLE_BUTTON = 2
+    RIGHT_BUTTON = 3
 
     def move(self, x, y):
         """Move mouse pointer to specified location"""
@@ -25,20 +25,20 @@ class Mouse:
 class X11Mouse(Mouse):
 
     def __init__(self):
-        self.display = display.Display()
+        self.display = Xlib.display.Display()
         self.screen = self.display.screen()
 
     def move(self, x, y):
         self.screen.root.warp_pointer(x, y)
-        self.display.sync()        
+        self.display.sync()
 
     def press(self, button):
-        # TODO: implement
-        return
+        Xlib.ext.xtest.fake_input(self.display, Xlib.X.ButtonPress, button)
+        self.display.sync()
 
     def release(self, button):
-        # TODO: implement
-         return
+        Xlib.ext.xtest.fake_input(self.display, Xlib.X.ButtonRelease, button)
+        self.display.sync()
 
 class Win32Mouse(Mouse):
 
@@ -55,7 +55,9 @@ class Win32Mouse(Mouse):
         return
 
 if sys.platform == 'linux2':
-    from Xlib import display
+    import Xlib.display
+    import Xlib.X
+    import Xlib.ext.xtest
     mouse = X11Mouse()
 elif sys.platform == 'win32':
     import win32api
