@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-from bottle import route, template, run, request, response
+from bottle import route, template, run, request, response, CherryPyServer
 from cheese import mouse, keyboard
+
 
 @route('/')
 def index():
@@ -11,26 +12,25 @@ Mouse and Keyboard update routes
 """
 @route('/mouse/moved', method='POST')
 def mouse_moved():
-    x = request.POST.get('x')
-    y = request.POST.get('y')
-    mouse.move(x, y)
+    x = int(request.POST.get('x'))
+    y = int(request.POST.get('y'))
     print 'Mouse moved! x: %s y: %s' % (x, y)
 
 @route('/mouse/pressed', method='POST')
 def mouse_pressed():
-    button = request.POST.get('button')
-    mouse.press(button)
+    button = int(request.POST.get('button'))
+    mouse.press(button + 1)
     print 'Mouse pressed! button: %s' % button 
 
 @route('/mouse/released', method='POST')
 def mouse_released():
-    button = request.POST.get('button')
-    mouse.release(button)
+    button = int(request.POST.get('button'))
+    mouse.release(button + 1)
     print 'Mouse released! button: %s' % button
 
 @route('/keyboard/pressed', method='POST')
 def keyboard_pressed():
-    key = request.POST.get('key')
+    key = int(request.POST.get('key'))
     ctrl = request.POST.get('ctrl', False)
     alt = request.POST.get('alt', False)
     shift = request.POST.get('shift', False)
@@ -40,7 +40,7 @@ def keyboard_pressed():
 
 @route('/keyboard/released', method='POST')
 def keyboard_released():
-    key = request.POST.get('key')
+    key = int(request.POST.get('key'))
     ctrl = request.POST.get('ctrl', False)
     alt = request.POST.get('alt', False)
     shift = request.POST.get('shift', False)
@@ -55,5 +55,9 @@ def static_file(file):
 """
 Launch server
 """
-run(host='localhost', port=1300)
+try:
+    run(host='0.0.0.0', port=1300, server=CherryPyServer)
+except ImportError:
+    # no cherrypy, use SimpleServer (slooooow)
+    run(host='0.0.0.0', port=1300)
 

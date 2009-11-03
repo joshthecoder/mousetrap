@@ -67,7 +67,7 @@ class Keyboard:
 class X11Keyboard(Keyboard):
 
     js_to_x11_keycode = {
-        8:22, 9:23, 13:36, 16:50, 17:37, 18:64, 19:127, 20:66, 27:9, 33:112,
+        8:22, 9:23, 13:36, 16:50, 17:37, 18:64, 19:127, 20:66, 27:9, 32:65, 33:112,
         34:117, 35:115, 36:110, 37:113, 38:111, 39:114, 40:116, 45:118, 46:119,
         48:19, 49:10, 50:11, 51:12, 52:13, 53:14, 54:15, 55:16, 56:17, 57:18,
         65:38, 66:56, 67:54, 68:40, 69:26, 70:41, 71:42, 72:43, 73:31, 74:44,
@@ -85,7 +85,7 @@ class X11Keyboard(Keyboard):
 
     def _lookup_keycode(self, js_keycode):
         try:
-            return js_to_x11_keycode[js_keycode]
+            return self.js_to_x11_keycode[js_keycode]
         except:
             raise RuntimeError('Invalid keycode: %s' % js_keycode)
 
@@ -94,7 +94,7 @@ class X11Keyboard(Keyboard):
         Xlib.ext.xtest.fake_input(self.display, Xlib.X.KeyPress, x11_keycode)
         self.display.sync()
 
-    def release(self, key):
+    def release(self, js_keycode):
         x11_keycode = self._lookup_keycode(js_keycode)
         Xlib.ext.xtest.fake_input(self.display, Xlib.X.KeyRelease, x11_keycode)
         self.display.sync()
